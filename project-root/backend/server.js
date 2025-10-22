@@ -3,6 +3,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import connectDB from './config/db.js';
 import authRoutes from './routes/auth.js';
@@ -48,12 +49,17 @@ app.get('/', (req, res) => {
 
 app.use('/api/fridge', fridgeRoutes);
 
-// Serve static files from React frontend
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
-// Express 5: use a RegExp for a catch-all route
-app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
-});
+// Serve static files from React frontend if built
+const frontendDistPath = path.join(__dirname, '../frontend/dist');
+if (fs.existsSync(frontendDistPath)) {
+  app.use(express.static(frontendDistPath));
+  // Express 5: use a RegExp for a catch-all route
+  app.get(/.*/, (req, res) => {
+    res.sendFile(path.join(frontendDistPath, 'index.html'));
+  });
+} else {
+  console.warn(`Frontend build not found at ${frontendDistPath}. Skipping static file hosting.`);
+}
 
 // Export server for testing/ops to close gracefully if needed
 export default serverInstance;
