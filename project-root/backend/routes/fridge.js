@@ -1,6 +1,6 @@
 import express from 'express';
 import { protect } from '../middleware/authMiddleware.js';
-import Fridge from '../models/fridgeModel.js';
+import Fridge from '../models/fridgemodel.js';
 
 const router = express.Router();
 
