@@ -17,8 +17,19 @@ const app = express();        // ✅ Define app before using it
 app.use(cors());
 app.use(express.json());
 
-// Connect to DB
-connectDB();
+// Connect to DB and start server only after successful connection
+let serverInstance;
+connectDB()
+  .then(() => {
+    const PORT = process.env.PORT || 5000;
+    serverInstance = app.listen(PORT, '0.0.0.0', () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error('Failed to connect to MongoDB. Server not started.');
+    process.exit(1);
+  });
 
 // Routes
 app.use('/api/auth', authRoutes);
@@ -36,8 +47,5 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
 });
 
-// Start server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Export server for testing/ops to close gracefully if needed
+export default serverInstance;
