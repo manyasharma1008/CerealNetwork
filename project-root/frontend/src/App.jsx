@@ -1,35 +1,84 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [fridges, setFridges] = useState([]);
+  const [location, setLocation] = useState('');
+  const [items, setItems] = useState('');
+  const [updatedBy, setUpdatedBy] = useState('');
+
+  // Fetch fridge data
+ useEffect(() => {
+  fetch('http://localhost:5000/api/fridge/all')
+    .then(res => res.json())
+    .then(data => {
+      console.log('✅ Backend Connected. Fridge Data:', data);
+    })
+    .catch(err => {
+      console.error('❌ Backend NOT Connected:', err);
+    });
+}, []);
+
+  // Handle fridge insert
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const payload = {
+      location,
+      items: items.split(',').map(item => item.trim()),
+      updatedBy
+    };
+
+    await fetch('http://localhost:5000/api/fridge/add', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    setLocation('');
+    setItems('');
+    setUpdatedBy('');
+    alert('Fridge added!');
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app">
+      <h1>🧊 Mycelium Fridge Network</h1>
+
+      <form onSubmit={handleSubmit} className="form">
+        <input
+          type="text"
+          placeholder="Location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Items (comma separated)"
+          value={items}
+          onChange={(e) => setItems(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Updated By"
+          value={updatedBy}
+          onChange={(e) => setUpdatedBy(e.target.value)}
+          required
+        />
+        <button type="submit">Add Fridge</button>
+      </form>
+
+      <h2>📦 Fridge Inventory</h2>
+      <ul>
+        {fridges.map((fridge) => (
+          <li key={fridge._id}>
+            <strong>{fridge.location}</strong> — {fridge.items.join(', ')} (by {fridge.updatedBy})
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
-export default App
+export default App;
