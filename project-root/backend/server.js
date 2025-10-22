@@ -44,7 +44,7 @@ app.use('/api/auth', authRoutes);
 
 // Health check route
 app.get('/health', (req, res) => {
-  res.json({ message: 'Backend server is running 🚀' });
+  res.json({ status: 'ok' });
 });
 
 app.use('/api/fridge', fridgeRoutes);
@@ -53,9 +53,12 @@ app.use('/api/fridge', fridgeRoutes);
 const frontendDistPath = path.join(__dirname, '../frontend/dist');
 if (fs.existsSync(frontendDistPath)) {
   app.use(express.static(frontendDistPath));
-  // Express 5: use a RegExp for a catch-all route
-  app.get(/.*/, (req, res) => {
-    res.sendFile(path.join(frontendDistPath, 'index.html'));
+  // Catch-all: serve React app for non-API routes
+  app.get('*', (req, res, next) => {
+    if (!req.originalUrl.startsWith('/api')) {
+      return res.sendFile(path.join(frontendDistPath, 'index.html'));
+    }
+    return next();
   });
 } else {
   console.warn(`Frontend build not found at ${frontendDistPath}. Skipping static file hosting.`);
