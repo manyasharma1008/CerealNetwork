@@ -42,8 +42,8 @@ connectDB()
 // Routes
 app.use('/api/auth', authRoutes);
 
-// Default route
-app.get('/', (req, res) => {
+// Health check route
+app.get('/health', (req, res) => {
   res.json({ message: 'Backend server is running 🚀' });
 });
 
