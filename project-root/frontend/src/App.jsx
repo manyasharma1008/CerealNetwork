@@ -7,17 +7,20 @@ function App() {
   const [items, setItems] = useState('');
   const [updatedBy, setUpdatedBy] = useState('');
 
+  const BASE_URL = "https://cerealnetwork-backend.onrender.com"; // 🔥 Your live backend
+
   // Fetch fridge data
- useEffect(() => {
-  fetch('http://localhost:5000/api/fridge/all')
-    .then(res => res.json())
-    .then(data => {
-      console.log('✅ Backend Connected. Fridge Data:', data);
-    })
-    .catch(err => {
-      console.error('❌ Backend NOT Connected:', err);
-    });
-}, []);
+  useEffect(() => {
+    fetch(`${BASE_URL}/api/fridge/all`)
+      .then(res => res.json())
+      .then(data => {
+        console.log('✅ Backend Connected. Fridge Data:', data);
+        setFridges(data); // ✅ Show fridge data in UI
+      })
+      .catch(err => {
+        console.error('❌ Backend NOT Connected:', err);
+      });
+  }, []);
 
   // Handle fridge insert
   const handleSubmit = async (e) => {
@@ -28,7 +31,7 @@ function App() {
       updatedBy
     };
 
-    await fetch('http://localhost:5000/api/fridge/add', {
+    await fetch(`${BASE_URL}/api/fridge/add`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
