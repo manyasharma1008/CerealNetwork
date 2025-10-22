@@ -1,16 +1,19 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "CerealNetwork backend server",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Vedant",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "devDependencies": {
     "nodemon": "^3.1.10"
   },
