@@ -10,7 +10,14 @@ import authRoutes from './routes/auth.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-dotenv.config();              // ✅ Load env first
+// Load environment variables from the backend's .env explicitly to avoid CWD issues
+const envPath = path.resolve(__dirname, '.env');
+const dotenvResult = dotenv.config({ path: envPath });
+if (dotenvResult.error && process.env.NODE_ENV !== 'production') {
+  // Non-fatal in case env vars are provided by the host environment
+  console.warn(`No .env file found at ${envPath}. Using existing environment variables.`);
+}
+              // ✅ Load env first
 const app = express();        // ✅ Define app before using it
 
 // Middleware
@@ -43,7 +50,8 @@ app.use('/api/fridge', fridgeRoutes);
 
 // Serve static files from React frontend
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
-app.get('*', (req, res) => {
+// Express 5: use a RegExp for a catch-all route
+app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
 });
 
