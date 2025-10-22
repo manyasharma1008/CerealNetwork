@@ -7,7 +7,8 @@ function App() {
   const [items, setItems] = useState('');
   const [updatedBy, setUpdatedBy] = useState('');
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+// Prefer Vite env var; default to same-origin
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
   // Fetch fridge data
   useEffect(() => {
     fetch(`${BASE_URL}/api/fridge/all`)
