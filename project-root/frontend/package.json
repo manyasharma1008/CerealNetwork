@@ -1,13 +1,13 @@
 {
   "name": "frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint ."
   },
   "dependencies": {
     "react": "^19.2.0",
@@ -28,9 +28,9 @@
     "tailwindcss": "^4.1.15",
     "vite": "^7.1.11"
   },
-  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "description": "Vite + React + Tailwind setup for Mycelium Fridge frontend",
   "main": "eslint.config.js",
   "keywords": [],
-  "author": "",
+  "author": "Vedant",
   "license": "ISC"
 }
