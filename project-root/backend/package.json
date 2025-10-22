@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "postinstall": "if [ -f ../frontend/package-lock.json ]; then npm --prefix ../frontend ci --no-audit --no-fund; else npm --prefix ../frontend install --no-audit --no-fund; fi && npm --prefix ../frontend run build"
   },
   "keywords": [],
   "author": "Vedant",
