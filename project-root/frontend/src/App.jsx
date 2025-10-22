@@ -7,8 +7,7 @@ function App() {
   const [items, setItems] = useState('');
   const [updatedBy, setUpdatedBy] = useState('');
 
-  const BASE_URL = "https://cerealnetwork-backend.onrender.com"; // 🔥 Your live backend
-
+const BASE_URL = process.env.REACT_APP_BASE_URL;
   // Fetch fridge data
   useEffect(() => {
     fetch(`${BASE_URL}/api/fridge/all`)
