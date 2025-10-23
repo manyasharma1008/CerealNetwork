@@ -4,7 +4,7 @@ services:
     env: node
     plan: free
     rootDir: project-root/backend
-    buildCommand: npm install
+    buildCommand: npm install && npm --prefix ../frontend ci && npm --prefix ../frontend run build
     startCommand: npm start
     autoDeploy: true
     envVars:
@@ -13,4 +13,4 @@ services:
       - key: JWT_SECRET
         sync: false
       - key: NODE_VERSION
-        value: 18
+        value: 20
