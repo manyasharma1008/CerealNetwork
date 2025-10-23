@@ -12,7 +12,7 @@ function Home() {
     <section className="home-section">
       <div className="hero-text">
         <h1>Welcome to The Cereal Network</h1>
-        <p>Scroll down to see the animation</p>
+        <p>No Fridge Left Alone</p>
       </div>
 
       {/* About Section */}
