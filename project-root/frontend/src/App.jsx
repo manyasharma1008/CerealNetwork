@@ -1,86 +1,102 @@
-import { useState, useEffect } from 'react';
-import './App.css';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import MapView from "./pages/MapView.jsx";
 
-function App() {
-  const [fridges, setFridges] = useState([]);
-  const [location, setLocation] = useState('');
-  const [items, setItems] = useState('');
-  const [updatedBy, setUpdatedBy] = useState('');
+import { motion } from "framer-motion";
+import "./App.css";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
-  // Fetch fridge data
-  useEffect(() => {
-    fetch(`${BASE_URL}/api/fridge/all`)
-      .then(res => res.json())
-      .then(data => {
-        console.log('✅ Backend Connected. Fridge Data:', data);
-        setFridges(data); // ✅ Show fridge data in UI
-      })
-      .catch(err => {
-        console.error('❌ Backend NOT Connected:', err);
-      });
-  }, []);
-
-  // Handle fridge insert
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const payload = {
-      location,
-      items: items.split(',').map(item => item.trim()),
-      updatedBy
-    };
-
-    await fetch(`${BASE_URL}/api/fridge/add`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-
-    setLocation('');
-    setItems('');
-    setUpdatedBy('');
-    alert('Fridge added!');
-  };
-
+// Home Page
+function Home() {
   return (
-    <div className="app">
-      <h1>🧊 Mycelium Fridge Network</h1>
+    <section className="home-section">
+      <div className="hero-text">
+        <h1>Welcome to The Cereal Network</h1>
+        <p>Scroll down to see the animation</p>
+      </div>
 
-      <form onSubmit={handleSubmit} className="form">
-        <input
-          type="text"
-          placeholder="Location"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Items (comma separated)"
-          value={items}
-          onChange={(e) => setItems(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Updated By"
-          value={updatedBy}
-          onChange={(e) => setUpdatedBy(e.target.value)}
-          required
-        />
-        <button type="submit">Add Fridge</button>
-      </form>
+      {/* About Section */}
+      <motion.div
+        className="about-section"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        viewport={{ once: true }}
+      >
+        <h2>About Us</h2>
+        <p>
+          The Cereal Network is a community-driven initiative to connect local
+          food sharing points. Our goal is to make sure that no one goes hungry
+          and surplus food finds its way to those who need it.
+        </p>
+      </motion.div>
 
-      <h2>📦 Fridge Inventory</h2>
-      <ul>
-        {fridges.map((fridge) => (
-          <li key={fridge._id}>
-            <strong>{fridge.location}</strong> — {fridge.items.join(', ')} (by {fridge.updatedBy})
-          </li>
-        ))}
-      </ul>
+      {/* Mission Section */}
+      <motion.div
+        className="mission-section"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        viewport={{ once: true }}
+      >
+        <h2>Our Mission</h2>
+        <p>
+          We’re creating a decentralized system of community fridges powered by
+          people, for people. Every fridge has a story, and every donation makes
+          a difference.
+        </p>
+      </motion.div>
+
+      {/* Contact Section */}
+      <motion.div
+        className="contact-section"
+        initial={{ opacity: 0, y: 100 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
+        <h2>Contact Us</h2>
+        <p>
+          Have questions, suggestions, or want to collaborate? We’d love to hear
+          from you.
+        </p>
+
+        <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
+          <input type="text" placeholder="Your Name" required />
+          <input type="email" placeholder="Your Email" required />
+          <textarea placeholder="Your Message" rows="4" required />
+          <button type="submit">Send Message</button>
+        </form>
+      </motion.div>
+
+      {/* Footer */}
+      <footer className="footer">
+        <p>© 2025 The Cereal Network. All rights reserved.</p>
+      </footer>
+    </section>
+  );
+}
+
+// Help Page
+function Help() {
+  return (
+    <div className="page">
+      <h1>Help Page</h1>
+      <p>Need assistance? Contact us for support and guidance.</p>
     </div>
   );
 }
 
-export default App;
+// Final Export
+export default function App() {
+  return (
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/map" element={<MapView />} /> {/* ← Your original map */}
+        <Route path="/help" element={<Help />} />
+      </Routes>
+    </>
+  );
+}

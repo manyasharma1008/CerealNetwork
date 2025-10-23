@@ -1,0 +1,185 @@
+/* 🌌 GLOBAL HOME STYLING */
+.home {
+  width: 100%;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #0e0e0e 0%, #000 90%);
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* 🦸 HERO SECTION */
+.hero {
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  color: #bbb;
+  max-width: 600px;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+/* 🌀 TEAR TITLE */
+.tear-title {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  overflow: visible;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+.tear-row {
+  display: block;                 /* force each line separately */
+  font-weight: 800;
+  color: #00e1ff;
+  text-shadow: 0 0 25px rgba(0, 225, 255, 0.9);
+  white-space: nowrap;            /* keep words together on same line */
+  text-align: center;
+  margin: 0 auto;
+  line-height: 1.1;
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  overflow: visible;
+}
+
+.tear-letter {
+  display: inline-block;
+}
+
+.particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 0;
+}
+
+.particle-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 225, 255, 0.95), transparent 70%);
+  filter: blur(0.6px);
+}
+
+/* ⭐ REVIEWS SECTION */
+.reviews {
+  padding: 80px 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.reviews h3 {
+  font-size: 2rem;
+  color: #00e1ff;
+  margin-bottom: 40px;
+  text-shadow: 0 0 10px rgba(0, 225, 255, 0.3);
+}
+
+.review-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.review-grid .card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 15px;
+  padding: 25px 30px;
+  width: 280px;
+  color: #eee;
+  backdrop-filter: blur(10px);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.review-grid .card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 20px rgba(0, 225, 255, 0.3);
+}
+
+/* ✉️ CONTACT SECTION */
+.contact {
+  padding: 100px 0;
+}
+
+.contact h3 {
+  font-size: 2rem;
+  color: #00e1ff;
+  margin-bottom: 25px;
+  text-shadow: 0 0 10px rgba(0, 225, 255, 0.3);
+}
+
+.contact form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.contact input,
+.contact textarea {
+  width: 60%;
+  max-width: 500px;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.3s ease;
+}
+
+.contact input:focus,
+.contact textarea:focus {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px rgba(0, 225, 255, 0.4);
+}
+
+.contact button {
+  background: #00e1ff;
+  color: #000;
+  font-weight: 600;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.contact button:hover {
+  background: #00bcd4;
+  transform: translateY(-2px);
+}
+
+/* 📱 RESPONSIVE */
+@media (max-width: 768px) {
+  .tear-row {
+    font-size: 2.3rem;
+  }
+
+  .contact input,
+  .contact textarea {
+    width: 80%;
+  }
+
+  .review-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+}
