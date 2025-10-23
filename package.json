@@ -6,8 +6,8 @@
   "scripts": {
     "start": "npm --prefix project-root/backend start",
     "dev": "npm --prefix project-root/backend run dev",
-    "build": "npm --prefix project-root/frontend run build",
-    "postinstall": "npm --prefix project-root/frontend run build"
+    "build": "npm --prefix project-root/frontend ci --include=dev --no-audit --fund=false && npm --prefix project-root/frontend run build",
+    "postinstall": "node -e \"process.exit(process.env.VERCEL?0:1)\" || (npm --prefix project-root/frontend ci --include=dev --no-audit --fund=false && npm --prefix project-root/frontend run build)"
   },
   "repository": {
     "type": "git",
