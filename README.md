@@ -1,6 +1,6 @@
 # CerealNetwork
 
-A decentralized, fault-tolerant platform for coordinating community food sharing locations. Mycelium Network provides real-time inventory visibility for community fridges, little free pantries, and food distribution points, enabling efficient resource allocation and reducing food waste.
+A decentralized, fault-tolerant platform for coordinating community food sharing locations. Cereal Network provides real-time inventory visibility for community fridges, little free pantries, and food distribution points, enabling efficient resource allocation and reducing food waste.
 
 ## 🎯 The Problem
 
@@ -12,7 +12,7 @@ Community food sharing initiatives face critical coordination challenges:
 
 ## 💡 Our Solution
 
-Mycelium Network creates a resilient, community-owned coordination system that:
+Cereal Network creates a resilient, community-owned coordination system that:
 - **Tracks real-time inventory** across all connected food sharing locations
 - **Provides multiple access points** via web app and SMS for maximum accessibility
 - **Uses decentralized technology** to ensure system resilience and community ownership
