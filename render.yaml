@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: cerealnetwork-backend
+    env: node
+    plan: free
+    rootDir: project-root/backend
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeploy: true
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: NODE_VERSION
+        value: 18
