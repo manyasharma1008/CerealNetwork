@@ -10,15 +10,15 @@ import authRoutes from './routes/auth.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-dotenv.config();              // ✅ Load env first
+dotenv.config({ path: path.join(__dirname, '.env') }); // Ensure correct .env path
 const app = express();        // ✅ Define app before using it
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Connect to DB
-connectDB();
+// Connect to DB before starting the server
+await connectDB();
 
 // Routes
 app.use('/api/auth', authRoutes);
@@ -36,7 +36,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
 });
 
-// Start server
+// Start server only after successful DB connection
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
